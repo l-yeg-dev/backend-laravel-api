@@ -20,7 +20,7 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 
 Route::get('/auth/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
-Route::get('/preferences', [PreferenceController::class, 'getPreferences'])->middleware('auth:sanctum');
+Route::get('/preferences', [PreferenceController::class, 'getPreferences']);
 Route::post('/preferences', [PreferenceController::class, 'setPreferences'])->middleware('auth:sanctum');
 
 Route::get('/news', [ArticleController::class, 'index']);

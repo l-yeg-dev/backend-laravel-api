@@ -15,11 +15,9 @@ class PreferenceController extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    public function getPreferences(Request $request)
+    public function getPreferences()
     {
-        $preferences = $request
-            ->user()
-            ->preferences;
+        $preferences = auth('sanctum')->user()?->preferences;
 
         return response()->json([
             'preferences' => $this->generatePreferencesOutput($preferences)
