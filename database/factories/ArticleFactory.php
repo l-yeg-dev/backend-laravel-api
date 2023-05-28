@@ -18,15 +18,15 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => fake()->text(100),
-            'articleId' => fake()->numerify('art-####'),
+            'article_id' => fake()->numerify('art-####'),
             'description' => fake()->paragraph(1),
             'url' => fake()->url(),
             'content' => fake()->paragraph(3),
-            'imageUrl' => fake()->imageUrl(640, 480, 'animals', true),
+            'image_url' => fake()->imageUrl(640, 480, 'animals', true),
             'source_id' => rand(1,3),
             'category_id' => rand(1,3),
             'author_id' => rand(1,3),
-            'created_at' => fake()->datetime()
+            'published_at' => fake()->datetime()
         ];
     }
 }

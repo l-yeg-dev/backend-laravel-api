@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\Source::insert([
-            ['name' => 'NewsApi'],
+            ['name' => 'The Guardian'],
             ['name' => 'OpenNews'],
             ['name' => 'BBCNews']
         ]);
@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Ernesto Clear']
         ]);
 
-        \App\Models\Article::factory(20)->create();
+        \App\Models\Article::factory(3)->create();
     }
 }

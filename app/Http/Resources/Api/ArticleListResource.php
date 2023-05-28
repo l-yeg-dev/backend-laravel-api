@@ -5,7 +5,7 @@ namespace App\Http\Resources\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ArticleResource extends JsonResource
+class ArticleListResource extends JsonResource
 {
     public function __construct($resource)
     {
@@ -23,13 +23,12 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'content' => $this->content,
             'url' => $this->url,
-            'imageUrl' => $this->imageUrl,
+            'imageUrl' => $this->image_url,
             'author' => $this->author,
             'source' => $this->source,
             'category' => $this->category,
-            'createdAt' => $this->created_at
+            'publishedAt' => $this->published_at
         ];
     }
 }

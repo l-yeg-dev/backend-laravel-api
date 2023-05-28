@@ -16,11 +16,15 @@ class Article extends Model
      */
     protected $fillable = [
         'title',
-        'articleId',
-        'content',
-        'imageUrl',
+        'article_id',
         'description',
-        'source_id'
+        'content',
+        'url',
+        'image_url',
+        'source_id',
+        'author_id',
+        'category_id',
+        'published_at'
     ];
 
     public function author()

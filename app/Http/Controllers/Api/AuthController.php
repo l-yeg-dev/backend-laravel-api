@@ -69,9 +69,9 @@ class AuthController extends BaseController
         ]);
     }
 
-    public function me(Request $request) {
+    public function me() {
         return response()->json([
-            'user' => new UserInfoResource($request->user())
+            'user' => new UserInfoResource(auth('sanctum')->user())
         ]);
     }
 }

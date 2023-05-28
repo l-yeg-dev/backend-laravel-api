@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\Api\ArticleResource;
 use App\Models\Article;
-use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
+use App\Http\Resources\Api\{ArticleListResource, ArticleItemResource};
+use Illuminate\Routing\Controller as BaseController;
 
 class ArticleController extends BaseController
 {
 
-    public function index(Request $request)
+    public function search(Request $request)
     {
         $authUser = auth('sanctum')->user();
 
@@ -23,6 +23,7 @@ class ArticleController extends BaseController
         $endDate = isset($date['endDate']) ? date($date['endDate']) : null;
 
         $search = $request->get('search');
+        $limit = $request->get('limit', 20);
 
         // If user is authenticated but filter is selected take search by query filter 
         if ($authUser && $authUser->preferences) {
@@ -49,20 +50,29 @@ class ArticleController extends BaseController
                 $q->whereIn('author_id', $authors);
             })
             ->when($startDate, function ($q) use ($startDate) {
-                $q->where('created_at', '>', $startDate);
+                $q->where('published_at', '>', $startDate);
             })
             ->when($endDate, function ($q) use ($endDate) {
-                $q->where('created_at', '<', $endDate);
+                $q->where('published_at', '<', $endDate);
             })
             ->when($search, function ($q) use ($search) {
                 $q->where('title', 'LIKE', "%$search%")
                     ->orWhere('content', 'LIKE', "%$search%")
                     ->orWhere('description', 'LIKE', "%$search%");
             })
+            ->orderBy('published_at', 'DESC')
+            ->limit($limit)
             ->get();
 
         return response()->json([
-            'news' => ArticleResource::collection($news)
+            'news' => ArticleListResource::collection($news)
         ]);
+    }
+
+    public function show(int $id)
+    {
+        $article = Article::findOrFail($id);
+
+        return response()->json(new ArticleItemResource($article));
     }
 }

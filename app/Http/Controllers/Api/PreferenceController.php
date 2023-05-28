@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Author;
-use App\Models\Category;
-use App\Models\Source;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\{Author, Category, Source};
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PreferenceController extends BaseController
 {
@@ -26,29 +24,27 @@ class PreferenceController extends BaseController
 
     public function setPreferences(Request $request)
     {
+
         $this->validate($request, [
             'sourceIds.*' => 'exists:sources,id',
             'categoryIds.*' => 'exists:categories,id',
             'authorIds.*' => 'exists:authors,id',
         ]);
 
-        $preferences = $request
-            ->user()
-            ->preferences;
+        $authUser = auth('sanctum')->user();
 
         $sourceIds = $request->get('sourceIds', []);
         $categoryIds = $request->get('categoryIds', []);
         $authorIds = $request->get('authorIds', []);
 
+        $preferences = $authUser->preferences;
         if ($preferences) {
             $preferences->sources = $sourceIds;
             $preferences->categories = $categoryIds;
             $preferences->authors = $authorIds;
             $preferences->save();
         } else {
-            $preferences = $request
-                ->user()
-                ->preferences()
+            $preferences = $authUser->preferences()
                 ->create([
                     'sources' =>  $sourceIds,
                     'categories' =>  $categoryIds,

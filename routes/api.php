@@ -23,4 +23,5 @@ Route::get('/auth/me', [AuthController::class, 'me'])->middleware('auth:sanctum'
 Route::get('/preferences', [PreferenceController::class, 'getPreferences']);
 Route::post('/preferences', [PreferenceController::class, 'setPreferences'])->middleware('auth:sanctum');
 
-Route::get('/news', [ArticleController::class, 'index']);
+Route::get('/news', [ArticleController::class, 'search']);
+Route::get('/news/{id}', [ArticleController::class, 'show']);

@@ -12,8 +12,7 @@ class UserPreference extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'authors', 'categories',
-        'sources'
+        'authors', 'categories', 'sources'
     ];
 
     protected $casts = [

@@ -13,15 +13,16 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('articleId');
-            $table->string('title');
-            $table->string('url');
-            $table->string('imageUrl');
-            $table->string('description');
-            $table->string('content');
-            $table->foreignId('source_id');
-            $table->foreignId('category_id');
-            $table->foreignId('author_id');
+            $table->text('title');
+            $table->longText('content');
+            $table->string('article_id')->nullable();
+            $table->text('url')->nullable();
+            $table->text('image_url')->nullable();
+            $table->text('description')->nullable();
+            $table->foreignId('source_id')->nullable();
+            $table->foreignId('category_id')->nullable();
+            $table->foreignId('author_id')->nullable();
+            $table->datetime('published_at')->nullable();
             $table->timestamps();
         });
     }
