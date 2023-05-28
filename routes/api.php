@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PreferenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use App\Http\Controllers\Api\AuthController;
 
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
-Route::middleware('auth:sanctum')->post('/auth/me', [AuthController::class, 'me']);
 
-Route::middleware('auth:sanctum')->get('/news', [ArticleController::class, 'index']);
+Route::get('/auth/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
+Route::get('/preferences', [PreferenceController::class, 'getPreferences'])->middleware('auth:sanctum');
+Route::post('/preferences', [PreferenceController::class, 'setPreferences'])->middleware('auth:sanctum');
+
+Route::get('/news', [ArticleController::class, 'index']);

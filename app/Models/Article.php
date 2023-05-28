@@ -18,9 +18,23 @@ class Article extends Model
         'title',
         'articleId',
         'content',
-        'authors',
         'imageUrl',
         'description',
-        'source'
+        'source_id'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
+
+    public function source()
+    {
+        return $this->belongsTo(Source::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Source::class);
+    }
 }

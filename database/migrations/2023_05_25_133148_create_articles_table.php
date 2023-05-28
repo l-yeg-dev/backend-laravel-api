@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('articleId');
             $table->string('title');
+            $table->string('url');
             $table->string('imageUrl');
             $table->string('description');
-            $table->string('authors');
             $table->string('content');
-            $table->string('source');
+            $table->foreignId('source_id');
+            $table->foreignId('category_id');
+            $table->foreignId('author_id');
             $table->timestamps();
         });
     }
