@@ -41,16 +41,15 @@ class NewsAggregator
                 $insertData['category_id'] = $category->id;
             }
 
-            $isExist = Article::where(['title' => $insertData['title']])->first();
-            if (!$isExist) {
-                $articles[] = $insertData;
-            }
-        }
 
-        try {
-            Article::insert($articles);
-        } catch (\Throwable $th) {
-            //...
-        }
+                try {
+                    $isExist = Article::where(['title' => $insertData['title']])->first();
+                    if (!$isExist) {
+                        Article::insert($insertData);
+                    }
+                } catch (\Throwable $th) {
+                        //...
+                }
+                }
+            }
     }
-}

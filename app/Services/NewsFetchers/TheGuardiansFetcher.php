@@ -42,7 +42,7 @@ class TheGuardiansFetcher implements NewsFetcherInterface
                 'description' => $article['fields']['headline'],
                 'content' => $article['fields']['body'],
                 'url' => $article['fields']['shortUrl'],
-                'image_url' => $article['fields']['thumbnail'],
+                'image_url' => isset($article['fields']['thumbnail']) ? $article['fields']['thumbnail'] : null,
                 'category' => $article['sectionName'],
                 'author' => count($article['tags']) ? $article['tags'][0]['webTitle'] : null,
                 'source' => "The Guardian",

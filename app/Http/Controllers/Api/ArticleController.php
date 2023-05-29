@@ -25,7 +25,7 @@ class ArticleController extends BaseController
         $search = $request->get('search');
         $limit = $request->get('limit', 20);
 
-        // If user is authenticated but filter is selected take search by query filter 
+        // If user is authenticated but filter is selected take search by query filter
         if ($authUser && $authUser->preferences) {
             $preferences = $authUser->preferences;
             if (!count($sources) && count($preferences->sources)) {
